@@ -28,12 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            Button = new Button();
+            SuspendLayout();
+            // 
+            // Button
+            // 
+            Button.Location = new Point(0, 0);
+            Button.Name = "Button";
+            Button.Size = new Size(75, 23);
+            Button.TabIndex = 0;
+            Button.Text = "EXIT";
+            Button.UseVisualStyleBackColor = true;
+            Button.Click += Button_Click;
+            // 
+            // Form1
+            // 
+            ClientSize = new Size(350, 150);
+            Controls.Add(Button);
+            FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "Form1";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.Manual;
+            Text = "Form1";
+            TopMost = true;
+            Left = 1550;
+            Top = 870;
+            StartPosition = FormStartPosition.Manual;
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button Button;
     }
 }

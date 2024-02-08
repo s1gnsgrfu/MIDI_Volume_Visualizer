@@ -9,6 +9,15 @@ namespace MIDI_Volume_Visualizer
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+
+            //Button button = new Button();
+
+            //button.Text = "Exit";
+            //button.BackColor = Color.White;
+            //this.CancelButton = button;
+            //f.Controls.Add(button);
+
+
             Application.Run(new Form1());
         }
     }

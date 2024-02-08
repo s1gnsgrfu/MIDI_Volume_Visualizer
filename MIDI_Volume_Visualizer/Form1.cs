@@ -6,5 +6,10 @@ namespace MIDI_Volume_Visualizer
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
