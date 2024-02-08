@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIDI_Volume_Visualizer", "MIDI_Volume_Visualizer\MIDI_Volume_Visualizer.csproj", "{CAB53FF4-3B48-483C-BE0A-F61D775FF66E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAB53FF4-3B48-483C-BE0A-F61D775FF66E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB53FF4-3B48-483C-BE0A-F61D775FF66E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB53FF4-3B48-483C-BE0A-F61D775FF66E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB53FF4-3B48-483C-BE0A-F61D775FF66E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {746ABAD3-C27D-4968-9804-B43A53FD0A78}
+	EndGlobalSection
+EndGlobal
