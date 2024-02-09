@@ -56,18 +56,6 @@ using NAudio.CoreAudioApi;
             }
         }
 
-        private void Form2_KeyDown(object sender, KeyEventArgs e)
-        {
-            stepIndex = (int)((MIDI_MSG_Value) / stepSize);
-            string str = "updateProgressBar("+stepIndex+");";
-            webView21.ExecuteScriptAsync(str);
-        }
-
-        private void webView21_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("click");
-        }
-
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
             int DATA1 = 63;//DATA1 of MIDI Messages
