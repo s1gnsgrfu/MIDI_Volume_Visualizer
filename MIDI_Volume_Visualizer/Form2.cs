@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using NAudio;
 using NAudio.Midi;
 using System.Runtime.InteropServices;
+using NAudio.CoreAudioApi;
 
     namespace MIDI_Volume_Visualizer
     {
@@ -21,6 +22,7 @@ using System.Runtime.InteropServices;
         static int stepIndex;
         private static MidiIn? midiIn;
         private static int MIDI_MSG_Value;
+        static int volume = 0;
 
         [DllImport("kernel32.dll")]
         private static extern bool AllocConsole();
@@ -34,7 +36,7 @@ using System.Runtime.InteropServices;
         }
         private void InitializeMidiInput()
         {
-            midiIn = new MidiIn(1); // MIDIデバイスのインデックスを指定して初期化
+            midiIn = new MidiIn(1); 
             midiIn.MessageReceived += MidiIn_MessageReceived;
             midiIn.Start();
         }
@@ -70,6 +72,9 @@ using System.Runtime.InteropServices;
         {
             int DATA1 = 63;//DATA1 of MIDI Messages
 
+            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
+            MMDevice device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+
             MidiEvent midiEvent = MidiEvent.FromRawMessage(e.RawMessage);
             if (midiEvent.CommandCode == MidiCommandCode.ControlChange)
             {
@@ -85,9 +90,29 @@ using System.Runtime.InteropServices;
                     webView21.Invoke(new Action(() => {
                         webView21.ExecuteScriptAsync(str);
                     }));
+
+                    SetProcessVolume(Program.PID, stepIndex / 100.0f);
                 }
             }
         }
+
+        private void SetProcessVolume(int processId, float volumeLevel)
+        {
+            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
+            MMDevice device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+
+            for (int i = 0; i < device.AudioSessionManager.Sessions.Count; i++)
+            {
+                var session = device.AudioSessionManager.Sessions[i];
+                if (session.GetProcessID == processId)
+                {
+                    session.SimpleAudioVolume.Volume = volumeLevel;
+                    Console.WriteLine($"PID {processId} -> Change volume level : {volumeLevel * 100}%");
+                    return;
+                }
+            }
+        }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
