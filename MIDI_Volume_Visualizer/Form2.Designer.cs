@@ -46,7 +46,6 @@ namespace MIDI_Volume_Visualizer
             webView21.TabIndex = 0;
             webView21.ZoomFactor = 1D;
             webView21.CoreWebView2InitializationCompleted += WebView21_CoreWebView2InitializationCompleted;
-            webView21.Click += webView21_Click;
             webView21.KeyDown += Form2_KeyDown;
             // 
             // Form2

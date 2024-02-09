@@ -13,22 +13,19 @@ namespace MIDI_Volume_Visualizer
 
     internal class Program
     {
-        private static MidiIn? midiIn;
-        public static int MIDI_MSG_Value;
+        //private static MidiIn? midiIn;
+        //public static int MIDI_MSG_Value;
 
-        [DllImport("kernel32.dll")]
-        private static extern bool AllocConsole();
+
 
 
         [STAThread]
         static void Main()
         {
-            AllocConsole();
-
             //Open MIDI Port
-            midiIn = new MidiIn(1); 
-            midiIn.MessageReceived += MidiIn_MessageReceived;
-            midiIn.Start();
+            //midiIn = new MidiIn(1); 
+            //midiIn.MessageReceived += MidiIn_MessageReceived;
+            //midiIn.Start();
 
             ApplicationConfiguration.Initialize();
             Form1 form1 = new();
@@ -50,24 +47,24 @@ namespace MIDI_Volume_Visualizer
             Application.Run(form2);
 
             //Close MIDI Port
-            midiIn.Stop();
-            midiIn.Dispose();
+            //midiIn.Stop();
+            //midiIn.Dispose();
 
         }
-        private static void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
-        {
-            int DATA1 = 63;//DATA1 of MIDI Messages
+        //private static void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
+        //{
+        //    int DATA1 = 63;//DATA1 of MIDI Messages
 
-            MidiEvent midiEvent = MidiEvent.FromRawMessage(e.RawMessage);
-            if (midiEvent.CommandCode == MidiCommandCode.ControlChange)
-            {
-                ControlChangeEvent controlChangeEvent = (ControlChangeEvent)midiEvent;
-                if ((int)controlChangeEvent.Controller == DATA1)
-                {
-                    MIDI_MSG_Value = controlChangeEvent.ControllerValue;
-                    Console.WriteLine("Value:" + MIDI_MSG_Value);
-                }
-            }
-        }
+        //    MidiEvent midiEvent = MidiEvent.FromRawMessage(e.RawMessage);
+        //    if (midiEvent.CommandCode == MidiCommandCode.ControlChange)
+        //    {
+        //        ControlChangeEvent controlChangeEvent = (ControlChangeEvent)midiEvent;
+        //        if ((int)controlChangeEvent.Controller == DATA1)
+        //        {
+        //            MIDI_MSG_Value = controlChangeEvent.ControllerValue;
+        //            Console.WriteLine("Value:" + MIDI_MSG_Value);
+        //        }
+        //    }
+        //}
     }
 }
