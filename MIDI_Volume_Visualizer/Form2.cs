@@ -80,7 +80,7 @@ using System.Runtime.InteropServices;
                     Console.WriteLine("Value:" + MIDI_MSG_Value);
 
                     stepIndex = (int)((MIDI_MSG_Value) / stepSize);
-                    string str = "updateProgressBar(" + stepIndex + ");";
+                    string str = "setProgressBarWidth('"+ stepIndex+"%');";
 
                     webView21.Invoke(new Action(() => {
                         webView21.ExecuteScriptAsync(str);
