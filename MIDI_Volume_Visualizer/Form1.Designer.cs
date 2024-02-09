@@ -52,10 +52,6 @@
             label1.Size = new Size(0, 15);
             label1.TabIndex = 1;
             // 
-            // timer1
-            // 
-            timer1.Tick += timer1_Tick;
-            // 
             // Form1
             // 
             ClientSize = new Size(350, 150);

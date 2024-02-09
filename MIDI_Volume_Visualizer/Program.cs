@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace MIDI_Volume_Visualizer
@@ -9,7 +11,8 @@ namespace MIDI_Volume_Visualizer
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Form1 form1 = new Form1();
+            Form1 form1 = new();
+            Form2 form2 = new();
 
             //Get Spotify process information
             foreach (System.Diagnostics.Process p in
@@ -24,8 +27,10 @@ namespace MIDI_Volume_Visualizer
             }
 
             Application.Run(form1);
+            Application.Run(form2);
             
         }
+
 
         //public static void form2ad(string name)
         //{

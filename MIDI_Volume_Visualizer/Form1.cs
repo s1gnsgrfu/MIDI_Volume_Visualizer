@@ -26,10 +26,5 @@ namespace MIDI_Volume_Visualizer
         {
             label1.Text += " " + value;
         }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-
-        }
     }
 }
