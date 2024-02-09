@@ -1,4 +1,6 @@
-﻿namespace MIDI_Volume_Visualizer
+﻿using Microsoft.Web.WebView2.Core;
+
+namespace MIDI_Volume_Visualizer
 {
     partial class Form2
     {
@@ -42,6 +44,8 @@
             webView21.Size = new Size(800, 450);
             webView21.TabIndex = 0;
             webView21.ZoomFactor = 1D;
+            //webView21.Click += webView21_Click;
+            webView21.EnsureCoreWebView2Async(null);
             // 
             // Form2
             // 
@@ -54,6 +58,8 @@
             ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
             ResumeLayout(false);
         }
+
+
 
         #endregion
 
