@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             Button = new Button();
             label1 = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
             // Button
@@ -45,11 +47,14 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(155, 68);
+            label1.Location = new Point(62, 68);
             label1.Name = "label1";
-            label1.Size = new Size(13, 15);
+            label1.Size = new Size(0, 15);
             label1.TabIndex = 1;
-            label1.Text = "0";
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
             // 
             // Form1
             // 
@@ -75,5 +80,6 @@
 
         private Button Button;
         private Label label1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
