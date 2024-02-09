@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             Button = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // Button
@@ -41,11 +42,23 @@
             Button.UseVisualStyleBackColor = true;
             Button.Click += Button_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(155, 68);
+            label1.Name = "label1";
+            label1.Size = new Size(13, 15);
+            label1.TabIndex = 1;
+            label1.Text = "0";
+            // 
             // Form1
             // 
             ClientSize = new Size(350, 150);
+            Controls.Add(label1);
             Controls.Add(Button);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
+            Location = new Point(1550, 850);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Form1";
@@ -53,14 +66,14 @@
             StartPosition = FormStartPosition.Manual;
             Text = "Form1";
             TopMost = true;
-            Left = 1550;
-            Top = 870;
-            StartPosition = FormStartPosition.Manual;
+            KeyDown += Form1_KeyDown;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button Button;
+        private Label label1;
     }
 }

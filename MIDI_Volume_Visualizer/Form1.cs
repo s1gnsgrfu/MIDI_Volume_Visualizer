@@ -11,5 +11,15 @@ namespace MIDI_Volume_Visualizer
         {
             this.Close();
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            label1.Text += 1;
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
     }
 }
