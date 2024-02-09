@@ -1,4 +1,5 @@
 ﻿using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.WinForms;
 
 namespace MIDI_Volume_Visualizer
 {
@@ -30,7 +31,7 @@ namespace MIDI_Volume_Visualizer
         /// </summary>
         private void InitializeComponent()
         {
-            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            webView21 = new WebView2();
             ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
             SuspendLayout();
             // 
@@ -44,8 +45,9 @@ namespace MIDI_Volume_Visualizer
             webView21.Size = new Size(800, 450);
             webView21.TabIndex = 0;
             webView21.ZoomFactor = 1D;
-            //webView21.Click += webView21_Click;
-            webView21.EnsureCoreWebView2Async(null);
+            webView21.CoreWebView2InitializationCompleted += WebView21_CoreWebView2InitializationCompleted;
+            webView21.Click += webView21_Click;
+            webView21.KeyDown += Form2_KeyDown;
             // 
             // Form2
             // 
@@ -53,12 +55,12 @@ namespace MIDI_Volume_Visualizer
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(webView21);
+            KeyPreview = true;
             Name = "Form2";
             Text = "Form2";
             ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
             ResumeLayout(false);
         }
-
 
 
         #endregion
