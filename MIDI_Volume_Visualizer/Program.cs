@@ -1,23 +1,38 @@
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
+using NAudio.Midi;
 
 namespace MIDI_Volume_Visualizer
 {
+
     internal class Program
     {
+        private static MidiIn? midiIn;
+        public static int MIDI_MSG_Value;
+
+        [DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
+
+
         [STAThread]
         static void Main()
         {
+            AllocConsole();
+
+            //Open MIDI Port
+            midiIn = new MidiIn(1); 
+            midiIn.MessageReceived += MidiIn_MessageReceived;
+            midiIn.Start();
+
             ApplicationConfiguration.Initialize();
             Form1 form1 = new();
             Form2 form2 = new();
-            //WebView2 webView2 = new WebView2();
-
-            //webView21.CoreWebView2.SetVirtualHostNameToFolderMapping("assets", "assets", CoreWebView2HostResourceAccessKind.Allow);
 
             //Get Spotify process information
             foreach (System.Diagnostics.Process p in
@@ -33,16 +48,26 @@ namespace MIDI_Volume_Visualizer
 
             Application.Run(form1);
             Application.Run(form2);
-            
+
+            //Close MIDI Port
+            midiIn.Stop();
+            midiIn.Dispose();
+
         }
+        private static void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
+        {
+            int DATA1 = 63;//DATA1 of MIDI Messages
 
-        //public void SetVirtualHostNameToFolderMapping(string hostName, string folderPath, Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind accessKind);
-
-        //public static void form2ad(string name)
-        //{
-        //    Form2 form2 = new Form2();
-        //    form2.Label_Set(name);
-        //    Application.Run(form2);
-        //}
+            MidiEvent midiEvent = MidiEvent.FromRawMessage(e.RawMessage);
+            if (midiEvent.CommandCode == MidiCommandCode.ControlChange)
+            {
+                ControlChangeEvent controlChangeEvent = (ControlChangeEvent)midiEvent;
+                if ((int)controlChangeEvent.Controller == DATA1)
+                {
+                    MIDI_MSG_Value = controlChangeEvent.ControllerValue;
+                    Console.WriteLine("Value:" + MIDI_MSG_Value);
+                }
+            }
+        }
     }
 }

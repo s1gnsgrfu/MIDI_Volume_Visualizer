@@ -1,5 +1,5 @@
 ﻿    using Microsoft.Web.WebView2.Core;
-    using System;
+using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Data;
@@ -14,6 +14,9 @@
     public partial class Form2 : Form
     {
         int prog = 0;
+        double stepSize = (double)127 / 100;    //Converts 127 to 100 steps
+        int stepIndex;
+
         public Form2()
         {
             InitializeComponent();
@@ -37,24 +40,14 @@
 
         private void Form2_KeyDown(object sender, KeyEventArgs e)
         {
-            //MessageBox.Show("down");
-            string str = "updateProgressBar("+prog+");";
+            stepIndex = (int)((Program.MIDI_MSG_Value) / stepSize);
+            string str = "updateProgressBar("+stepIndex+");";
             webView21.ExecuteScriptAsync(str);
-            prog+=10;
-            if (prog >= 100)
-            {
-                prog = 0;
-            }
         }
 
         private void webView21_Click(object sender, EventArgs e)
         {
             MessageBox.Show("click");
         }
-
-        //private void webView21_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
-        //{
-        //    webView21.KeyDown += Form2_KeyDown;
-        //}
     }
 }

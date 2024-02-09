@@ -1,0 +1,40 @@
+using System;
+using Sanford.Multimedia.Midi; // MIDIライブラリを使用するためのusing文
+
+class Program
+{
+    private static MidiIn midiIn;
+
+    static void Main(string[] args)
+    {
+        // MIDI入力ポートを開く
+        midiIn = new MidiIn(0); // デフォルトのMIDI入力ポートを使用する場合
+        midiIn.MessageReceived += MidiIn_MessageReceived;
+        midiIn.Start();
+
+        Console.WriteLine("Press any key to exit.");
+        Console.ReadKey();
+
+        // アプリケーションが終了する際に、MIDI入力ポートを閉じる
+        midiIn.Stop();
+        midiIn.Close();
+    }
+
+    // MIDIメッセージ受信時のイベントハンドラ
+    private static void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
+    {
+        // MIDIメッセージを解析し、特定のMIDIメッセージを処理する
+        // ここに特定のMIDIメッセージ（DATA2）の処理を記述する
+        MidiEvent midiEvent = MidiEvent.FromRawMessage(e.RawMessage);
+        if (midiEvent.MidiMessage.MessageType == MessageType.Channel)
+        {
+            ChannelMessage channelMessage = (ChannelMessage)midiEvent.MidiMessage;
+            // DATA2が所望のMIDIメッセージであるかどうかを確認する
+            if (channelMessage.Data2 == /* Nano.SliderのDATA2に対応する値 */)
+            {
+                // Nano.SliderのDATA2に対する処理を実行する
+                Console.WriteLine("Nano.Slider message received!");
+            }
+        }
+    }
+}
