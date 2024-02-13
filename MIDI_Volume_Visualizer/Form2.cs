@@ -36,9 +36,16 @@ using NAudio.CoreAudioApi;
         }
         private void InitializeMidiInput()
         {
-            midiIn = new MidiIn(1); 
-            midiIn.MessageReceived += MidiIn_MessageReceived;
-            midiIn.Start();
+            try
+            {
+                midiIn = new MidiIn(1); 
+                midiIn.MessageReceived += MidiIn_MessageReceived;
+                midiIn.Start();
+            }catch (Exception ex)
+            {
+                MessageBox.Show("Could not initialize the MIDI device.\nCheck to see if the device is connected and if any other software that uses MIDI devices is running.");
+                Environment.Exit(1);
+            }
         }
 
         private void WebView21_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
@@ -48,11 +55,11 @@ using NAudio.CoreAudioApi;
                 //Assign local folders to domains
                 webView21.CoreWebView2.SetVirtualHostNameToFolderMapping("assets.view", "assets", CoreWebView2HostResourceAccessKind.Allow);
                 webView21.CoreWebView2.Navigate("https://assets.view/index.html");
-                webView21.Focus();
             }
             else
             {
                 MessageBox.Show($"Initialization failed : WebView2\nError : {e.InitializationException}");
+                Environment.Exit(1);
             }
         }
 

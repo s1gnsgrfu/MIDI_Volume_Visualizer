@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MIDI_Volume_Visualizer": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\Code\\C#\\MIDI_Volume_Visualizer\\MIDI_Volume_Visualizer\\MIDI_Volume_Visualizer"
+    }
+  }
+}

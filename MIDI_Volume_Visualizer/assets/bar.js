@@ -1,17 +1,8 @@
-var progressBar = document.getElementById("progressBar");
-  
-var progress = 0;
-
-function updateProgressBar(percentage) {
-  progressBar.style.width = percentage + "%";
+function setProgressBarWidth(width) {
+  var progressBar = document.querySelector('.progress_front');
+  var innerDiv = document.getElementById("prog2");
+  innerDiv.style = "width: "+width;
+  progressBar.style.width = width;
 }
 
-var increaseButton = document.getElementById("increaseButton");
-
-increaseButton.addEventListener("click", function() {
-  progress += 10;
-  if (progress > 100) {
-    progress = 100;
-  }
-  updateProgressBar(progress);
-});
+//setProgressBarWidth('50%');

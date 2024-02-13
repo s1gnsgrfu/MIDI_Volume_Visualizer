@@ -1,10 +1,28 @@
-.bar {
+.progress_back{
+    display: block;
     width: 100%;
-    background-color: #f2f2f2;
+    height: 7px;
+    background: #ccc;
+    position: relative;
+    border-radius: 10px;
 }
-    
-.progress {
-    width: 0%;
-    height: 30px;
-    background-color: #4c82af;
+.progress_front{
+    display: block;
+    width: 0;
+    height: 7px;
+    background: #7aa3fc;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+    transition: 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.main{
+    margin:  30px
+}
+
+body{
+    background:rgb(54, 54, 54)
 }
