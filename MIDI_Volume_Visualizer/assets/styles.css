@@ -20,9 +20,22 @@
 }
 
 .main{
-    margin:  30px
+    bottom:0;
+    margin: 10px 30px 0px 30px;
 }
 
 body{
-    background:rgb(54, 54, 54)
+    background:rgb(54, 54, 54);
+}
+
+.name{
+    color:white;
+    margin: 10px 35px;
+    text-align:left;
+}
+
+.per{
+    color:white;
+    text-align:right;
+    margin:0px 35px;
 }
