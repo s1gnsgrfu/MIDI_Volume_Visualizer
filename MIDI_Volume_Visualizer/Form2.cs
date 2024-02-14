@@ -12,6 +12,8 @@ using NAudio;
 using NAudio.Midi;
 using System.Runtime.InteropServices;
 using NAudio.CoreAudioApi;
+using static System.Windows.Forms.DataFormats;
+using System.Security.Cryptography;
 
     namespace MIDI_Volume_Visualizer
     {
@@ -23,6 +25,8 @@ using NAudio.CoreAudioApi;
         private static MidiIn? midiIn;
         private static int MIDI_MSG_Value;
         static int volume = 0;
+        static int PID = 0;
+
 
         [DllImport("kernel32.dll")]
         private static extern bool AllocConsole();
@@ -65,6 +69,22 @@ using NAudio.CoreAudioApi;
 
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
+            if(PID== 0)
+            {
+                //Get Spotify process information
+                foreach (System.Diagnostics.Process p in
+                    System.Diagnostics.Process.GetProcessesByName("Spotify"))
+                {
+                    //Only when the title of the main window
+                    if (p.MainWindowTitle.Length != 0)
+                    {
+                        PID = p.Id;
+                        string tmp = "ProcessName : " + p.ProcessName + "\nPID : " + p.Id;
+                        Console.WriteLine(tmp);
+                    }
+                }
+            }
+
             int DATA1 = 63;//DATA1 of MIDI Messages
 
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
@@ -86,7 +106,7 @@ using NAudio.CoreAudioApi;
                         webView21.ExecuteScriptAsync(str);
                     }));
 
-                    SetProcessVolume(Program.PID, stepIndex / 100.0f);
+                    SetProcessVolume(PID, stepIndex / 100.0f);
                 }
             }
         }
