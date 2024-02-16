@@ -18,10 +18,8 @@ namespace MIDI_Volume_Visualizer
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Form1 form1 = new();
             Form2 form2 = new();
 
-            Application.Run(form1);
             Application.Run(form2);
         }
     }
