@@ -5,4 +5,14 @@ function setProgressBarWidth(width) {
   progressBar.style.width = width;
 }
 
+function setPercent(per) {
+    document.getElementById("inper").innerHTML = per + "%";
+}
+
+function setTitle(title) {
+    document.getElementById("title").innerHTML = title;
+}
+
 //setProgressBarWidth('50%');
+//setPercent(70);
+//setTitle("Chrome");

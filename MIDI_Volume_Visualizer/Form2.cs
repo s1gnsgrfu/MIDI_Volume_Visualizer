@@ -26,6 +26,8 @@ using System.Security.Cryptography;
         private static int MIDI_MSG_Value;
         static int volume = 0;
         static int PID = 0;
+        static int ChangeTitle = 1;
+        static string ProcessName = "Spotify";
 
 
         [DllImport("kernel32.dll")]
@@ -42,16 +44,17 @@ using System.Security.Cryptography;
         {
             try
             {
-                midiIn = new MidiIn(1); 
+                midiIn = new MidiIn(1);
                 midiIn.MessageReceived += MidiIn_MessageReceived;
                 midiIn.Start();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Could not initialize the MIDI device.\nCheck to see if the device is connected and if any other software that uses MIDI devices is running.");
                 Environment.Exit(1);
             }
         }
-
+            
         private void WebView21_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
         {
             if (e.IsSuccess)
@@ -69,11 +72,11 @@ using System.Security.Cryptography;
 
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
-            if(PID== 0)
+            if (PID == 0)
             {
                 //Get Spotify process information
                 foreach (System.Diagnostics.Process p in
-                    System.Diagnostics.Process.GetProcessesByName("Spotify"))
+                    System.Diagnostics.Process.GetProcessesByName(ProcessName))
                 {
                     //Only when the title of the main window
                     if (p.MainWindowTitle.Length != 0)
@@ -83,6 +86,16 @@ using System.Security.Cryptography;
                         Console.WriteLine(tmp);
                     }
                 }
+            }
+
+            if (ChangeTitle == 1)
+            {
+                string str3 = "setTitle(\"" + ProcessName + "\");";
+                webView21.Invoke(new Action(() =>
+                {
+                    webView21.ExecuteScriptAsync(str3);
+                }));
+                ChangeTitle = 0;
             }
 
             int DATA1 = 63;//DATA1 of MIDI Messages
@@ -100,10 +113,15 @@ using System.Security.Cryptography;
                     Console.WriteLine("Value:" + MIDI_MSG_Value);
 
                     stepIndex = (int)((MIDI_MSG_Value) / stepSize);
-                    string str = "setProgressBarWidth('"+ stepIndex+"%');";
+                    string str = "setProgressBarWidth('" + stepIndex + "%');";
+                    string str2 = "setPercent(" + stepIndex + ");";
+                    //string str3 = "setTitle(\"" + ProcessName + "\");";
 
-                    webView21.Invoke(new Action(() => {
+                    webView21.Invoke(new Action(() =>
+                    {
                         webView21.ExecuteScriptAsync(str);
+                        webView21.ExecuteScriptAsync(str2);
+                        //webView21.ExecuteScriptAsync(str3);
                     }));
 
                     SetProcessVolume(PID, stepIndex / 100.0f);
@@ -135,5 +153,9 @@ using System.Security.Cryptography;
             midiIn?.Dispose();
         }
 
+        private void webView21_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
