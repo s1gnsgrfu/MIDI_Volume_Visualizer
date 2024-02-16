@@ -54,7 +54,7 @@ namespace MIDI_Volume_Visualizer
             Controls.Add(webView21);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
-            Location = new Point(1550, 850);
+            Location = new Point(1550, 900);
             Name = "Form2";
             StartPosition = FormStartPosition.Manual;
             Text = "Form2";
