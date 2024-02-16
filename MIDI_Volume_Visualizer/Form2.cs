@@ -26,7 +26,6 @@ using System.Security.Cryptography;
         private static int MIDI_MSG_Value;
         static int volume = 0;
         static int PID = 0;
-        static int ChangeTitle = 1;
         static string ProcessName = "Spotify";
 
 
@@ -88,16 +87,6 @@ using System.Security.Cryptography;
                 }
             }
 
-            if (ChangeTitle == 1)
-            {
-                string str3 = "setTitle(\"" + ProcessName + "\");";
-                webView21.Invoke(new Action(() =>
-                {
-                    webView21.ExecuteScriptAsync(str3);
-                }));
-                ChangeTitle = 0;
-            }
-
             int DATA1 = 63;//DATA1 of MIDI Messages
 
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
@@ -115,13 +104,13 @@ using System.Security.Cryptography;
                     stepIndex = (int)((MIDI_MSG_Value) / stepSize);
                     string str = "setProgressBarWidth('" + stepIndex + "%');";
                     string str2 = "setPercent(" + stepIndex + ");";
-                    //string str3 = "setTitle(\"" + ProcessName + "\");";
+                    string str3 = "setTitle(\"" + ProcessName + "\");";
 
                     webView21.Invoke(new Action(() =>
                     {
                         webView21.ExecuteScriptAsync(str);
                         webView21.ExecuteScriptAsync(str2);
-                        //webView21.ExecuteScriptAsync(str3);
+                        webView21.ExecuteScriptAsync(str3);
                     }));
 
                     SetProcessVolume(PID, stepIndex / 100.0f);
