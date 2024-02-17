@@ -1,4 +1,6 @@
 # MIDI_Volume_Visualizer 
+[Release Page](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/releases)
+
 MIDIスライダーで，任意のソフトウェアの音量を変更することができます．
   
 ![01](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/b48a6a18-fc01-46f9-9bd6-39e91facbc03)
