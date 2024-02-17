@@ -1,5 +1,7 @@
 # MIDI_Volume_Visualizer 
 [日本語版 READMEはこちら](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/README_ja.md)  
+
+[Release Page](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/releases)
   
 The MIDI slider allows you to change the volume of any software.  
   
