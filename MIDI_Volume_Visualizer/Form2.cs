@@ -14,12 +14,15 @@ using System.Runtime.InteropServices;
 using NAudio.CoreAudioApi;
 using static System.Windows.Forms.DataFormats;
 using System.Security.Cryptography;
+using System.Diagnostics;
 
 
 namespace MIDI_Volume_Visualizer
     {
     public partial class Form2 : Form
     {
+        Form1 form1 = new();
+
         int prog = 0;
         static double stepSize = (double)127 / 100;    //Converts 127 to 100 steps
         static int stepIndex;
@@ -27,7 +30,9 @@ namespace MIDI_Volume_Visualizer
         private static int MIDI_MSG_Value;
         static int volume = 0;
         static int PID = 0;
-        static string ProcessName = "Spotify";
+        public static int ProcessNameChange = 1;
+        public static int PIDChange = 0;
+        public static string ProcessName = "Spotify";
 
         private const int FadeInInterval = 10; // Fade-in interval (ms)
         private const double FadeInStep = 0.05;
@@ -45,7 +50,7 @@ namespace MIDI_Volume_Visualizer
 
         public Form2()
         {
-            //AllocConsole();
+            AllocConsole();
             InitializeComponent();
             InitializeMidiInput();
             webView21.EnsureCoreWebView2Async();
@@ -157,6 +162,7 @@ namespace MIDI_Volume_Visualizer
                 webView21.CoreWebView2.SetVirtualHostNameToFolderMapping("assets.view", "assets", CoreWebView2HostResourceAccessKind.Allow);
                 webView21.CoreWebView2.Navigate("https://assets.view/index.html");
 
+                string str = "setTitle(\"" + ProcessName + "\");";
             }
             else
             {
@@ -177,7 +183,7 @@ namespace MIDI_Volume_Visualizer
             }));
             FadeIn();
 
-            if (PID == 0)
+            if (PID==0)
             {
                 //Get Spotify process information
                 foreach (System.Diagnostics.Process p in
@@ -191,6 +197,16 @@ namespace MIDI_Volume_Visualizer
                         Console.WriteLine(tmp);
                     }
                 }
+                ProcessNameChange = 0;
+            }
+            
+            if (ProcessNameChange==1)
+            {
+                
+                PID = PIDChange;
+                //string tmp = "ProcessName : " + p.ProcessName + "\nPID : " + p.Id;
+                //Console.WriteLine(tmp);
+                ProcessNameChange = 0;
             }
 
             int DATA1 = 63;//DATA1 of MIDI Messages
@@ -206,6 +222,7 @@ namespace MIDI_Volume_Visualizer
                 {
                     MIDI_MSG_Value = controlChangeEvent.ControllerValue;
                     Console.WriteLine("Value:" + MIDI_MSG_Value);
+                    Console.WriteLine("PID:" + PID);
 
                     stepIndex = (int)((MIDI_MSG_Value) / stepSize);
                     string str = "setProgressBarWidth('" + stepIndex + "%');";
@@ -232,6 +249,9 @@ namespace MIDI_Volume_Visualizer
             for (int i = 0; i < device.AudioSessionManager.Sessions.Count; i++)
             {
                 var session = device.AudioSessionManager.Sessions[i];
+                uint gprocessId = session.GetProcessID;
+                string processName = ProcessName;
+
                 if (session.GetProcessID == processId)
                 {
                     session.SimpleAudioVolume.Volume = volumeLevel;
@@ -241,6 +261,7 @@ namespace MIDI_Volume_Visualizer
             }
         }
 
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -248,9 +269,9 @@ namespace MIDI_Volume_Visualizer
             midiIn?.Dispose();
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void Setting_Click(object sender, EventArgs e)
         {
-
+            form1.Show();
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)

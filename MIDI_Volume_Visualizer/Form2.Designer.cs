@@ -65,19 +65,19 @@ namespace MIDI_Volume_Visualizer
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2 });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(181, 70);
+            contextMenuStrip1.Size = new Size(117, 48);
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Size = new Size(116, 22);
             toolStripMenuItem1.Text = "Settings";
-            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
+            toolStripMenuItem1.Click += Setting_Click;
             // 
             // toolStripMenuItem2
             // 
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(180, 22);
+            toolStripMenuItem2.Size = new Size(116, 22);
             toolStripMenuItem2.Text = "Exit";
             toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
