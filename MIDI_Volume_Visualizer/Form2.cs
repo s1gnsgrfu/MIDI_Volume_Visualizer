@@ -29,8 +29,15 @@ namespace MIDI_Volume_Visualizer
         static int PID = 0;
         static string ProcessName = "Spotify";
 
+        private const int FadeInInterval = 10; // Fade-in interval (ms)
+        private const double FadeInStep = 0.05;
+        private const int FadeOutInterval = 30; // Fade-out interval (ms)
+        private const double FadeOutStep = 0.05;
+        private const int InactivityTimeout = 2000; // 3 seconds in milliseconds
         private System.Windows.Forms.Timer timer;
-        private const int InactivityTimeout = 3000; // 3 seconds in milliseconds
+        private System.Windows.Forms.Timer fadeInTimer;
+        private System.Windows.Forms.Timer fadeOutTimer;
+
 
 
         [DllImport("kernel32.dll")]
@@ -47,14 +54,66 @@ namespace MIDI_Volume_Visualizer
             timer.Interval = InactivityTimeout;
             timer.Tick += Timer_Tick;
             timer.Start();
+
+            fadeInTimer = new System.Windows.Forms.Timer();
+            fadeInTimer.Interval = FadeInInterval;
+            fadeInTimer.Tick += FadeInTimer_Tick;
+            FadeIn();
+
+            fadeOutTimer = new System.Windows.Forms.Timer();
+            fadeOutTimer.Interval = FadeOutInterval;
+            fadeOutTimer.Tick += FadeOutTimer_Tick;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            this.Invoke(new Action(() => {
+            StartFadeOutTimer();
+        }
+
+        private void FadeIn()
+        {
+            fadeInTimer.Start();
+        }
+
+        private void FadeInTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.Opacity < 0.9)
+            {
+                this.Opacity += FadeInStep;
+            }
+            else
+            {
+                fadeInTimer.Stop();
+            }
+        }
+
+        private void StartFadeOutTimer()
+        {
+            fadeOutTimer.Start();
+        }
+
+        private void StopFadeOutTimer()
+        {
+            fadeOutTimer.Stop();
+        }
+
+        private void FadeOutTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.Opacity > 0)
+            {
+                this.Opacity -= FadeOutStep;
+            }
+            else
+            {
                 this.Hide();
-                timer.Stop();
-            }));
+                StopFadeOutTimer();
+            }
+        }
+
+        private void ResetFadeOutTimer()
+        {
+            StopFadeOutTimer();
+            this.Opacity = 0.9;
         }
 
         private void InitializeMidiInput()
@@ -93,8 +152,10 @@ namespace MIDI_Volume_Visualizer
             this.Invoke(new Action(() => {
                 this.Show();
                 timer.Stop();
+                ResetFadeOutTimer();
                 timer.Start();
             }));
+            FadeIn();
 
             if (PID == 0)
             {
