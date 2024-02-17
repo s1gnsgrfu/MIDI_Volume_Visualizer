@@ -1,24 +1,11 @@
 ﻿using Microsoft.Web.WebView2.Core;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using NAudio;
 using NAudio.Midi;
 using System.Runtime.InteropServices;
 using NAudio.CoreAudioApi;
-using static System.Windows.Forms.DataFormats;
-using System.Security.Cryptography;
-using System.Diagnostics;
 
 
 namespace MIDI_Volume_Visualizer
-    {
+{
     public partial class Form2 : Form
     {
         Form1 form1 = new();
@@ -43,14 +30,8 @@ namespace MIDI_Volume_Visualizer
         private System.Windows.Forms.Timer fadeInTimer;
         private System.Windows.Forms.Timer fadeOutTimer;
 
-
-
-        [DllImport("kernel32.dll")]
-        private static extern bool AllocConsole();
-
         public Form2()
         {
-            AllocConsole();
             InitializeComponent();
             InitializeMidiInput();
             webView21.EnsureCoreWebView2Async();
@@ -193,8 +174,6 @@ namespace MIDI_Volume_Visualizer
                     if (p.MainWindowTitle.Length != 0)
                     {
                         PID = p.Id;
-                        string tmp = "ProcessName : " + p.ProcessName + "\nPID : " + p.Id;
-                        Console.WriteLine(tmp);
                     }
                 }
                 ProcessNameChange = 0;
@@ -204,8 +183,6 @@ namespace MIDI_Volume_Visualizer
             {
                 
                 PID = PIDChange;
-                //string tmp = "ProcessName : " + p.ProcessName + "\nPID : " + p.Id;
-                //Console.WriteLine(tmp);
                 ProcessNameChange = 0;
             }
 
@@ -221,8 +198,6 @@ namespace MIDI_Volume_Visualizer
                 if ((int)controlChangeEvent.Controller == DATA1)
                 {
                     MIDI_MSG_Value = controlChangeEvent.ControllerValue;
-                    Console.WriteLine("Value:" + MIDI_MSG_Value);
-                    Console.WriteLine("PID:" + PID);
 
                     stepIndex = (int)((MIDI_MSG_Value) / stepSize);
                     string str = "setProgressBarWidth('" + stepIndex + "%');";
@@ -255,7 +230,6 @@ namespace MIDI_Volume_Visualizer
                 if (session.GetProcessID == processId)
                 {
                     session.SimpleAudioVolume.Volume = volumeLevel;
-                    Console.WriteLine($"PID {processId} -> Change volume level : {volumeLevel * 100}%");
                     return;
                 }
             }
