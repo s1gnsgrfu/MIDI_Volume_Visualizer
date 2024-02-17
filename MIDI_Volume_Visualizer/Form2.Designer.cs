@@ -31,8 +31,15 @@ namespace MIDI_Volume_Visualizer
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             webView21 = new WebView2();
+            notifyIcon1 = new NotifyIcon(components);
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // webView21
@@ -47,42 +54,60 @@ namespace MIDI_Volume_Visualizer
             webView21.ZoomFactor = 1D;
             webView21.CoreWebView2InitializationCompleted += WebView21_CoreWebView2InitializationCompleted;
             // 
+            // notifyIcon1
+            // 
+            notifyIcon1.ContextMenuStrip = contextMenuStrip1;
+            notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
+            notifyIcon1.Text = "MIDI Volume Visualizer";
+            notifyIcon1.Visible = true;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2 });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(181, 70);
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Text = "Settings";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(180, 22);
+            toolStripMenuItem2.Text = "Exit";
+            toolStripMenuItem2.Click += toolStripMenuItem2_Click;
+            // 
             // Form2
             // 
-            BackColor = Color.FromArgb(255, 192, 192);
+            BackColor = Color.Black;
             ClientSize = new Size(330, 100);
             Controls.Add(webView21);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
             Location = new Point(1570, 920);
             Name = "Form2";
+            Opacity = 0.9D;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
             Text = "Form2";
+            TopMost = true;
             TransparencyKey = Color.FromArgb(255, 192, 192);
             ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
-            ShowInTaskbar = false;
-            TopMost = true;
-
-            this.BackColor = Color.Black;
-            this.Opacity = 0.9;
-            int radius = 10;
-            int diameter = radius * 2;
-            System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
-            gp.AddPie(0, 0, diameter, diameter, 180, 90);
-            gp.AddPie(this.Width - diameter, 0, diameter, diameter, 270, 90);
-            gp.AddPie(0, this.Height - diameter, diameter, diameter, 90, 90);
-            gp.AddPie(this.Width - diameter, this.Height - diameter, diameter, diameter, 0, 90);
-            gp.AddRectangle(new Rectangle(radius, 0, this.Width - diameter, this.Height));
-            gp.AddRectangle(new Rectangle(0, radius, radius, this.Height - diameter));
-            gp.AddRectangle(new Rectangle(this.Width - radius, radius, radius, this.Height - diameter));
-
-            this.Region = new Region(gp);
         }
 
 
         #endregion
 
         private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private NotifyIcon notifyIcon1;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem toolStripMenuItem2;
     }
 }

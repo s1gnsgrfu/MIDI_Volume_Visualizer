@@ -50,6 +50,24 @@ namespace MIDI_Volume_Visualizer
             InitializeMidiInput();
             webView21.EnsureCoreWebView2Async();
 
+            ShowInTaskbar = false;
+            TopMost = true;
+
+            this.BackColor = Color.Black;
+            this.Opacity = 0.9;
+            int radius = 10;
+            int diameter = radius * 2;
+            System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
+            gp.AddPie(0, 0, diameter, diameter, 180, 90);
+            gp.AddPie(this.Width - diameter, 0, diameter, diameter, 270, 90);
+            gp.AddPie(0, this.Height - diameter, diameter, diameter, 90, 90);
+            gp.AddPie(this.Width - diameter, this.Height - diameter, diameter, diameter, 0, 90);
+            gp.AddRectangle(new Rectangle(radius, 0, this.Width - diameter, this.Height));
+            gp.AddRectangle(new Rectangle(0, radius, radius, this.Height - diameter));
+            gp.AddRectangle(new Rectangle(this.Width - radius, radius, radius, this.Height - diameter));
+
+            this.Region = new Region(gp);
+
             timer = new System.Windows.Forms.Timer();
             timer.Interval = InactivityTimeout;
             timer.Tick += Timer_Tick;
@@ -130,7 +148,7 @@ namespace MIDI_Volume_Visualizer
                 Environment.Exit(1);
             }
         }
-            
+
         private void WebView21_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
         {
             if (e.IsSuccess)
@@ -138,7 +156,7 @@ namespace MIDI_Volume_Visualizer
                 //Assign local folders to domains
                 webView21.CoreWebView2.SetVirtualHostNameToFolderMapping("assets.view", "assets", CoreWebView2HostResourceAccessKind.Allow);
                 webView21.CoreWebView2.Navigate("https://assets.view/index.html");
-                
+
             }
             else
             {
@@ -150,7 +168,8 @@ namespace MIDI_Volume_Visualizer
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
             GC.Collect();
-            this.Invoke(new Action(() => {
+            this.Invoke(new Action(() =>
+            {
                 this.Show();
                 timer.Stop();
                 ResetFadeOutTimer();
@@ -229,9 +248,14 @@ namespace MIDI_Volume_Visualizer
             midiIn?.Dispose();
         }
 
-        private void webView21_Click(object sender, EventArgs e)
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
