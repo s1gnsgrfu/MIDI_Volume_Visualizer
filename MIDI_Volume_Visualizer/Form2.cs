@@ -149,6 +149,7 @@ namespace MIDI_Volume_Visualizer
 
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
+            GC.Collect();
             this.Invoke(new Action(() => {
                 this.Show();
                 timer.Stop();
