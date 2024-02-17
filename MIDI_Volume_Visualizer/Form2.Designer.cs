@@ -61,6 +61,8 @@ namespace MIDI_Volume_Visualizer
             TransparencyKey = Color.FromArgb(255, 192, 192);
             ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
             ResumeLayout(false);
+            ShowInTaskbar = false;
+            TopMost = true;
 
             this.BackColor = Color.Black;
             this.Opacity = 0.9;

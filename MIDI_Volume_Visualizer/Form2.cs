@@ -15,7 +15,8 @@ using NAudio.CoreAudioApi;
 using static System.Windows.Forms.DataFormats;
 using System.Security.Cryptography;
 
-    namespace MIDI_Volume_Visualizer
+
+namespace MIDI_Volume_Visualizer
     {
     public partial class Form2 : Form
     {
@@ -28,17 +29,34 @@ using System.Security.Cryptography;
         static int PID = 0;
         static string ProcessName = "Spotify";
 
+        private System.Windows.Forms.Timer timer;
+        private const int InactivityTimeout = 3000; // 3 seconds in milliseconds
+
 
         [DllImport("kernel32.dll")]
         private static extern bool AllocConsole();
 
         public Form2()
         {
-            AllocConsole();
+            //AllocConsole();
             InitializeComponent();
             InitializeMidiInput();
             webView21.EnsureCoreWebView2Async();
+
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = InactivityTimeout;
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(() => {
+                this.Hide();
+                timer.Stop();
+            }));
+        }
+
         private void InitializeMidiInput()
         {
             try
@@ -61,6 +79,7 @@ using System.Security.Cryptography;
                 //Assign local folders to domains
                 webView21.CoreWebView2.SetVirtualHostNameToFolderMapping("assets.view", "assets", CoreWebView2HostResourceAccessKind.Allow);
                 webView21.CoreWebView2.Navigate("https://assets.view/index.html");
+                
             }
             else
             {
@@ -71,6 +90,12 @@ using System.Security.Cryptography;
 
         private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
+            this.Invoke(new Action(() => {
+                this.Show();
+                timer.Stop();
+                timer.Start();
+            }));
+
             if (PID == 0)
             {
                 //Get Spotify process information
