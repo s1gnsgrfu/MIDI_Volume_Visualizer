@@ -12,6 +12,9 @@ MIDIスライダーで，任意のソフトウェアの音量を変更するこ�
 任意のソフトウェアを選択し，「Set」ボタンをクリック．
 ![03](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/11c93553-67b6-4389-9487-612dd52f1dde)
 
+## 動作確認済み商品
+keebwerk Nano.Slider
+
 ## License
 Copyright (c) 2024 S'(s1gnsgrfu)  
 
