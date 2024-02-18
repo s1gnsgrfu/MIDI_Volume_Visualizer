@@ -14,6 +14,9 @@ Right-click on MIDI_Volume_Visualizer in the task tray and click on Settings.
 Select the desired software and click the Set button
 ![03](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/11c93553-67b6-4389-9487-612dd52f1dde)
 
+## Products that have been confirmed to work
+keebwerk Nano.Slider
+
 ## License
 Copyright (c) 2024 S'(s1gnsgrfu)  
 
