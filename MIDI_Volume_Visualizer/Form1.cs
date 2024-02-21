@@ -24,7 +24,6 @@ namespace MIDI_Volume_Visualizer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            label4.Text = Form2.ProcessName;
             label6.Text = (Form2.DefaultOpacity * 100).ToString() + "%";
             trackBar1.Value = (int)(Form2.DefaultOpacity * 100);
 
@@ -45,17 +44,20 @@ namespace MIDI_Volume_Visualizer
             comboBox1.DataSource = src;
             comboBox1.DisplayMember = "ItemDisp";
             comboBox1.ValueMember = "ItemValue";
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (comboBox1.SelectedItem != null)
+            int selectedIndex = -1;
+            for (int i = 0; i < src.Count; i++)
             {
-                ItemSet tmp = ((ItemSet)comboBox1.SelectedItem);
-                label4.Text = tmp.ItemDisp;
-                Form2.ProcessName = tmp.ItemDisp;
-                Form2.PIDChange = int.Parse(comboBox1.SelectedValue.ToString());
-                Form2.ProcessNameChange = 1;
+                if (src[i].ItemDisp == Form2.ProcessName)
+                {
+                    selectedIndex = i;
+                    break;
+                }
+            }
+
+            if (selectedIndex != -1)
+            {
+                comboBox1.SelectedIndex = selectedIndex;
             }
         }
 
@@ -96,6 +98,14 @@ namespace MIDI_Volume_Visualizer
         {
             Form2.DefaultOpacity = (double)trackBar1.Value / 100;
             label6.Text = trackBar1.Value.ToString() + "%";
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            ItemSet tmp = ((ItemSet)comboBox1.SelectedItem);
+            Form2.ProcessName = tmp.ItemDisp;
+            Form2.PIDChange = int.Parse(comboBox1.SelectedValue.ToString());
+            Form2.ProcessNameChange = 1;
         }
     }
 }
