@@ -5,7 +5,7 @@ MIDIスライダーで，任意のソフトウェアの音量を変更するこ�
   
 ![01](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/b48a6a18-fc01-46f9-9bd6-39e91facbc03)
 
-## How to set up software to change volume ?
+## ボリューム調整をするソフトウェアの変更方法
 タスクトレイ内の「MIDI_Volume_Visualizer」を右クリックし，「Settings」をクリック．  
 ![02](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/30fc1acc-4d75-4b5e-a9c7-de2bda8bb294)
   
