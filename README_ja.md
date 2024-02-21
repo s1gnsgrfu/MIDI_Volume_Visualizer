@@ -5,12 +5,12 @@ MIDIスライダーで，任意のソフトウェアの音量を変更するこ�
   
 ![01](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/b48a6a18-fc01-46f9-9bd6-39e91facbc03)
 
-## ボリューム調整をするソフトウェアの変更方法
+## 設定
 タスクトレイ内の「MIDI_Volume_Visualizer」を右クリックし，「Settings」をクリック．  
 ![02](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/30fc1acc-4d75-4b5e-a9c7-de2bda8bb294)
   
-任意のソフトウェアを選択し，「Set」ボタンをクリック．
-![03](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/11c93553-67b6-4389-9487-612dd52f1dde)
+任意のソフトウェアを選択でき，透明度も変更することができます．  
+![010413](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/20597f57-9707-449f-a920-0d7d1f540c64)
 
 ## 動作確認済み商品
 keebwerk Nano.Slider
