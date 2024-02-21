@@ -79,7 +79,7 @@ namespace MIDI_Volume_Visualizer
             toolStripMenuItem2.Name = "toolStripMenuItem2";
             toolStripMenuItem2.Size = new Size(116, 22);
             toolStripMenuItem2.Text = "Exit";
-            toolStripMenuItem2.Click += toolStripMenuItem2_Click;
+            toolStripMenuItem2.Click += ToolStripMenuItem2_Click;
             // 
             // Form2
             // 
@@ -90,7 +90,6 @@ namespace MIDI_Volume_Visualizer
             KeyPreview = true;
             Location = new Point(1570, 920);
             Name = "Form2";
-            Opacity = 0.9D;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
             Text = "Form2";

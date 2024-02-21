@@ -2,20 +2,19 @@
 using NAudio.Midi;
 using System.Runtime.InteropServices;
 using NAudio.CoreAudioApi;
+using System.Diagnostics;
 
 
 namespace MIDI_Volume_Visualizer
 {
     public partial class Form2 : Form
     {
-        Form1 form1 = new();
+        readonly Form1 form1 = new();
 
-        int prog = 0;
-        static double stepSize = (double)127 / 100;    //Converts 127 to 100 steps
+        static readonly double stepSize = (double)127 / 100;    //Converts 127 to 100 steps
         static int stepIndex;
         private static MidiIn? midiIn;
         private static int MIDI_MSG_Value;
-        static int volume = 0;
         static int PID = 0;
         public static int ProcessNameChange = 1;
         public static int PIDChange = 0;
@@ -28,9 +27,9 @@ namespace MIDI_Volume_Visualizer
         private const int FadeOutInterval = 30; // Fade-out interval (ms)
         private const double FadeOutStep = 0.05;
         private const int InactivityTimeout = 2000; // 3 seconds in milliseconds
-        private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.Timer fadeInTimer;
-        private System.Windows.Forms.Timer fadeOutTimer;
+        private readonly System.Windows.Forms.Timer timer;
+        private readonly System.Windows.Forms.Timer fadeInTimer;
+        private readonly System.Windows.Forms.Timer fadeOutTimer;
 
         public Form2()
         {
@@ -38,14 +37,30 @@ namespace MIDI_Volume_Visualizer
             InitializeMidiInput();
             webView21.EnsureCoreWebView2Async();
 
-            if (ProcessName == null)
+            if (File.Exists("settings"))
             {
-                ProcessName = "Spotify";
+                IEnumerable<string> lines = File.ReadLines("settings");
+                int cnt = 0;
+
+                foreach (string line in lines)
+                {
+                    int index = line.IndexOf(':');
+                    string Setting = line[(index + 1)..];
+                    Debug.WriteLine(Setting);
+                    if (cnt == 0)
+                    {
+                        Form2.ProcessName = Setting;
+                    }
+                    else if (cnt == 1)
+                    {
+                        Form2.DefaultOpacity = double.Parse(Setting);
+                    }
+                    cnt++;
+                }
             }
-            if (DefaultOpacity == null)
-            {
-                DefaultOpacity = 0.9;
-            }
+
+            ProcessName ??= "Spotify";
+            DefaultOpacity ??= 0.9;
 
             ShowInTaskbar = false;
             TopMost = true;
@@ -54,7 +69,7 @@ namespace MIDI_Volume_Visualizer
             this.Opacity = (double)DefaultOpacity;
             int radius = 10;
             int diameter = radius * 2;
-            System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath gp = new();
             gp.AddPie(0, 0, diameter, diameter, 180, 90);
             gp.AddPie(this.Width - diameter, 0, diameter, diameter, 270, 90);
             gp.AddPie(0, this.Height - diameter, diameter, diameter, 90, 90);
@@ -65,22 +80,28 @@ namespace MIDI_Volume_Visualizer
 
             this.Region = new Region(gp);
 
-            timer = new System.Windows.Forms.Timer();
-            timer.Interval = InactivityTimeout;
+            timer = new System.Windows.Forms.Timer
+            {
+                Interval = InactivityTimeout
+            };
             timer.Tick += Timer_Tick;
             timer.Start();
 
-            fadeInTimer = new System.Windows.Forms.Timer();
-            fadeInTimer.Interval = FadeInInterval;
+            fadeInTimer = new System.Windows.Forms.Timer
+            {
+                Interval = FadeInInterval
+            };
             fadeInTimer.Tick += FadeInTimer_Tick;
             FadeIn();
 
-            fadeOutTimer = new System.Windows.Forms.Timer();
-            fadeOutTimer.Interval = FadeOutInterval;
+            fadeOutTimer = new System.Windows.Forms.Timer
+            {
+                Interval = FadeOutInterval
+            };
             fadeOutTimer.Tick += FadeOutTimer_Tick;
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object? sender, EventArgs e)
         {
             StartFadeOutTimer();
         }
@@ -90,7 +111,7 @@ namespace MIDI_Volume_Visualizer
             fadeInTimer.Start();
         }
 
-        private void FadeInTimer_Tick(object sender, EventArgs e)
+        private void FadeInTimer_Tick(object? sender, EventArgs e)
         {
             if (this.Opacity < DefaultOpacity)
             {
@@ -112,7 +133,7 @@ namespace MIDI_Volume_Visualizer
             fadeOutTimer.Stop();
         }
 
-        private void FadeOutTimer_Tick(object sender, EventArgs e)
+        private void FadeOutTimer_Tick(object? sender, EventArgs e)
         {
             if (this.Opacity > 0)
             {
@@ -139,22 +160,20 @@ namespace MIDI_Volume_Visualizer
                 midiIn.MessageReceived += MidiIn_MessageReceived;
                 midiIn.Start();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Could not initialize the MIDI device.\nCheck to see if the device is connected and if any other software that uses MIDI devices is running.");
                 Environment.Exit(1);
             }
         }
 
-        private void WebView21_CoreWebView2InitializationCompleted(object sender, CoreWebView2InitializationCompletedEventArgs e)
+        private void WebView21_CoreWebView2InitializationCompleted(object? sender, CoreWebView2InitializationCompletedEventArgs e)
         {
             if (e.IsSuccess)
             {
                 //Assign local folders to domains
                 webView21.CoreWebView2.SetVirtualHostNameToFolderMapping("assets.view", "assets", CoreWebView2HostResourceAccessKind.Allow);
                 webView21.CoreWebView2.Navigate("https://assets.view/index.html");
-
-                string str = "setTitle(\"" + ProcessName + "\");";
             }
             else
             {
@@ -163,7 +182,7 @@ namespace MIDI_Volume_Visualizer
             }
         }
 
-        private void MidiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
+        private void MidiIn_MessageReceived(object? sender, MidiInMessageEventArgs e)
         {
             GC.Collect();
             this.Invoke(new Action(() =>
@@ -199,7 +218,7 @@ namespace MIDI_Volume_Visualizer
 
             int DATA1 = 63;//DATA1 of MIDI Messages
 
-            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
+            MMDeviceEnumerator enumerator = new();
             MMDevice device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
 
             MidiEvent midiEvent = MidiEvent.FromRawMessage(e.RawMessage);
@@ -227,16 +246,14 @@ namespace MIDI_Volume_Visualizer
             }
         }
 
-        private void SetProcessVolume(int processId, float volumeLevel)
+        private static void SetProcessVolume(int processId, float volumeLevel)
         {
-            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
+            MMDeviceEnumerator enumerator = new();
             MMDevice device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
 
             for (int i = 0; i < device.AudioSessionManager.Sessions.Count; i++)
             {
                 var session = device.AudioSessionManager.Sessions[i];
-                uint gprocessId = session.GetProcessID;
-                string processName = ProcessName;
 
                 if (session.GetProcessID == processId)
                 {
@@ -254,7 +271,7 @@ namespace MIDI_Volume_Visualizer
             midiIn?.Dispose();
         }
 
-        private void Setting_Click(object sender, EventArgs e)
+        private void Setting_Click(object? sender, EventArgs e)
         {
             if (!form1.Visible)
             {
@@ -262,7 +279,7 @@ namespace MIDI_Volume_Visualizer
             }
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem2_Click(object? sender, EventArgs e)
         {
             Environment.Exit(0);
         }

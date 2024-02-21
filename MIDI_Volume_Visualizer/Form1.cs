@@ -30,7 +30,7 @@ namespace MIDI_Volume_Visualizer
             label6.Text = (Form2.DefaultOpacity * 100).ToString() + "%";
             trackBar1.Value = (int)(Form2.DefaultOpacity * 100);
 
-            List<ItemSet> src = new List<ItemSet>();
+            List<ItemSet> src = [];
 
             for (int i = 0; i < device.AudioSessionManager.Sessions.Count; i++)
             {
@@ -109,7 +109,7 @@ namespace MIDI_Volume_Visualizer
             this.Close();
         }
 
-        private void Setting_Out()
+        private static void Setting_Out()
         {
             string text = "ProcessName:" + Form2.ProcessName + "\n" +
                 "Opacity:" + Form2.DefaultOpacity + "\n";
