@@ -247,7 +247,10 @@ namespace MIDI_Volume_Visualizer
 
         private void Setting_Click(object sender, EventArgs e)
         {
-            form1.Show();
+            if (!form1.Visible)
+            {
+                form1.ShowDialog();
+            }
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)

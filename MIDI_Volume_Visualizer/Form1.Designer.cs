@@ -33,6 +33,8 @@
             trackBar1 = new TrackBar();
             label5 = new Label();
             label6 = new Label();
+            button1 = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
@@ -53,7 +55,6 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(230, 23);
             comboBox1.TabIndex = 4;
-            comboBox1.SelectionChangeCommitted += comboBox1_SelectionChangeCommitted;
             // 
             // trackBar1
             // 
@@ -86,11 +87,33 @@
             label6.Text = "Percent";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // button1
+            // 
+            button1.Location = new Point(432, 315);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 8;
+            button1.Text = "OK";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(513, 315);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 8;
+            button2.Text = "Cancel";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(600, 350);
+            Controls.Add(button2);
+            Controls.Add(button1);
             Controls.Add(label6);
             Controls.Add(trackBar1);
             Controls.Add(comboBox1);
@@ -98,7 +121,8 @@
             Controls.Add(label2);
             Name = "Form1";
             Text = "Settings";
-            FormClosing += Form1_FormClosing;
+            Activated += Form1_Load;
+            FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
@@ -111,5 +135,7 @@
         private TrackBar trackBar1;
         private Label label5;
         private Label label6;
+        private Button button1;
+        private Button button2;
     }
 }
