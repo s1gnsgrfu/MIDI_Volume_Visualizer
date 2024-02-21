@@ -19,9 +19,9 @@ namespace MIDI_Volume_Visualizer
         static int PID = 0;
         public static int ProcessNameChange = 1;
         public static int PIDChange = 0;
-        public static string ProcessName = "Spotify";
+        public static string? ProcessName;
 
-        public static double DefaultOpacity = 0.9;
+        public static double? DefaultOpacity;
 
         private const int FadeInInterval = 10; // Fade-in interval (ms)
         private const double FadeInStep = 0.05;
@@ -38,11 +38,20 @@ namespace MIDI_Volume_Visualizer
             InitializeMidiInput();
             webView21.EnsureCoreWebView2Async();
 
+            if (ProcessName == null)
+            {
+                ProcessName = "Spotify";
+            }
+            if (DefaultOpacity == null)
+            {
+                DefaultOpacity = 0.9;
+            }
+
             ShowInTaskbar = false;
             TopMost = true;
 
             this.BackColor = Color.Black;
-            this.Opacity = DefaultOpacity;
+            this.Opacity = (double)DefaultOpacity;
             int radius = 10;
             int diameter = radius * 2;
             System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
@@ -119,7 +128,7 @@ namespace MIDI_Volume_Visualizer
         private void ResetFadeOutTimer()
         {
             StopFadeOutTimer();
-            this.Opacity = DefaultOpacity;
+            this.Opacity = (double)DefaultOpacity;
         }
 
         private void InitializeMidiInput()

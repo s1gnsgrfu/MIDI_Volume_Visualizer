@@ -109,8 +109,16 @@ namespace MIDI_Volume_Visualizer
             this.Close();
         }
 
+        private void Setting_Out()
+        {
+            string text = "ProcessName:" + Form2.ProcessName + "\n" +
+                "Opacity:" + Form2.DefaultOpacity + "\n";
+            File.WriteAllText(@"settings", text);
+        }
+
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Setting_Out();
             GC.Collect();
         }
     }

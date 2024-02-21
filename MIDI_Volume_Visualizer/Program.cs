@@ -20,6 +20,27 @@ namespace MIDI_Volume_Visualizer
             ApplicationConfiguration.Initialize();
             Form2 form2 = new();
 
+            if (File.Exists("settings"))
+            {
+                IEnumerable<string> lines = File.ReadLines("settings");
+                int cnt = 0;
+
+                foreach (string line in lines)
+                {
+                    int index=line.IndexOf(':');
+                    string Setting = line.Substring(index + 1);
+                    Debug.WriteLine(Setting);
+                    if (cnt == 0)
+                    {
+                        Form2.ProcessName = Setting;
+                    }else if (cnt == 1)
+                    {
+                        Form2.DefaultOpacity = double.Parse(Setting);
+                    }
+                    cnt++;
+                }
+            }
+
             Application.Run(form2);
         }
     }
