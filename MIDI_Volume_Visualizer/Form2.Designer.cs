@@ -60,6 +60,7 @@ namespace MIDI_Volume_Visualizer
             notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
             notifyIcon1.Text = "MIDI Volume Visualizer";
             notifyIcon1.Visible = true;
+            notifyIcon1.DoubleClick += Setting_Click;
             // 
             // contextMenuStrip1
             // 
