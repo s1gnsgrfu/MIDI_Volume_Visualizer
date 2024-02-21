@@ -21,6 +21,8 @@ namespace MIDI_Volume_Visualizer
         public static int PIDChange = 0;
         public static string ProcessName = "Spotify";
 
+        public static double DefaultOpacity = 0.9;
+
         private const int FadeInInterval = 10; // Fade-in interval (ms)
         private const double FadeInStep = 0.05;
         private const int FadeOutInterval = 30; // Fade-out interval (ms)
@@ -40,7 +42,7 @@ namespace MIDI_Volume_Visualizer
             TopMost = true;
 
             this.BackColor = Color.Black;
-            this.Opacity = 0.9;
+            this.Opacity = DefaultOpacity;
             int radius = 10;
             int diameter = radius * 2;
             System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
@@ -81,7 +83,7 @@ namespace MIDI_Volume_Visualizer
 
         private void FadeInTimer_Tick(object sender, EventArgs e)
         {
-            if (this.Opacity < 0.9)
+            if (this.Opacity < DefaultOpacity)
             {
                 this.Opacity += FadeInStep;
             }
@@ -117,7 +119,7 @@ namespace MIDI_Volume_Visualizer
         private void ResetFadeOutTimer()
         {
             StopFadeOutTimer();
-            this.Opacity = 0.9;
+            this.Opacity = DefaultOpacity;
         }
 
         private void InitializeMidiInput()

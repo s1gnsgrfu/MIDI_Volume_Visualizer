@@ -25,6 +25,8 @@ namespace MIDI_Volume_Visualizer
         private void Form1_Load(object sender, EventArgs e)
         {
             label4.Text = Form2.ProcessName;
+            label6.Text = (Form2.DefaultOpacity * 100).ToString() + "%";
+            trackBar1.Value = (int)(Form2.DefaultOpacity * 100);
 
             var enumerator = new MMDeviceEnumerator();
             var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
@@ -52,7 +54,7 @@ namespace MIDI_Volume_Visualizer
                 ItemSet tmp = ((ItemSet)comboBox1.SelectedItem);
                 label4.Text = tmp.ItemDisp;
                 Form2.ProcessName = tmp.ItemDisp;
-                Form2.PIDChange=int.Parse(comboBox1.SelectedValue.ToString());
+                Form2.PIDChange = int.Parse(comboBox1.SelectedValue.ToString());
                 Form2.ProcessNameChange = 1;
             }
         }
@@ -88,6 +90,12 @@ namespace MIDI_Volume_Visualizer
                 e.Cancel = true;
                 this.Hide();
             }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            Form2.DefaultOpacity = (double)trackBar1.Value / 100;
+            label6.Text = trackBar1.Value.ToString() + "%";
         }
     }
 }

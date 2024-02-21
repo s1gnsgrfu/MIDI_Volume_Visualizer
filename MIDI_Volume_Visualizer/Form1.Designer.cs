@@ -34,6 +34,10 @@
             comboBox1 = new ComboBox();
             label3 = new Label();
             label4 = new Label();
+            trackBar1 = new TrackBar();
+            label5 = new Label();
+            label6 = new Label();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -94,21 +98,56 @@
             label4.TabIndex = 5;
             label4.Text = "Current Process";
             // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(242, 190);
+            trackBar1.Maximum = 100;
+            trackBar1.Name = "trackBar1";
+            trackBar1.Size = new Size(230, 45);
+            trackBar1.TabIndex = 6;
+            trackBar1.TickFrequency = 0;
+            trackBar1.TickStyle = TickStyle.None;
+            trackBar1.ValueChanged += trackBar1_ValueChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            label5.Location = new Point(71, 178);
+            label5.Name = "label5";
+            label5.Size = new Size(84, 30);
+            label5.TabIndex = 2;
+            label5.Text = "Opacity";
+            // 
+            // label6
+            // 
+            label6.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            label6.Location = new Point(481, 187);
+            label6.Name = "label6";
+            label6.Size = new Size(75, 23);
+            label6.TabIndex = 7;
+            label6.Text = "Percent";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(600, 350);
+            Controls.Add(label6);
+            Controls.Add(trackBar1);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(comboBox1);
             Controls.Add(button1);
+            Controls.Add(label5);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "Form1";
             Text = "Settings";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -121,5 +160,8 @@
         private ComboBox comboBox1;
         private Label label3;
         private Label label4;
+        private TrackBar trackBar1;
+        private Label label5;
+        private Label label6;
     }
 }
