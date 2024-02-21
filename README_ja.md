@@ -15,6 +15,17 @@ MIDIスライダーで，任意のソフトウェアの音量を変更するこ�
 ## 動作確認済み商品
 keebwerk Nano.Slider
 
+## 前提条件
+■MIDI Message  
+__STATUS__ : B2  
+__DATA1__ : 3F  
+__DATA2__ : 0x00 - 0x7F (slider position)  
+__CHANNEL__ : 3  
+__EVENT__ : Control Change  
+  
+MIDI-OXでのモニター状況  
+![04](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/36643b47-7538-430a-bc4e-752545efdc98)
+
 ## License
 Copyright (c) 2024 S'(s1gnsgrfu)  
 
