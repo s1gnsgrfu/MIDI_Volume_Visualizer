@@ -1,15 +1,23 @@
-﻿using Microsoft.Web.WebView2.Core;
+﻿/*
+display.cs
+
+Copyright (c) 2024 S'(s1gnsgrfu)
+
+This software is released under the MIT License.
+see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
+*/
+
+using Microsoft.Web.WebView2.Core;
 using NAudio.Midi;
-using System.Runtime.InteropServices;
 using NAudio.CoreAudioApi;
 using System.Diagnostics;
 
 
 namespace MIDI_Volume_Visualizer
 {
-    public partial class Form2 : Form
+    public partial class display : Form
     {
-        readonly Form1 form1 = new();
+        readonly Settings form1 = new();
 
         static readonly double stepSize = (double)127 / 100;    //Converts 127 to 100 steps
         static int stepIndex;
@@ -31,7 +39,7 @@ namespace MIDI_Volume_Visualizer
         private readonly System.Windows.Forms.Timer fadeInTimer;
         private readonly System.Windows.Forms.Timer fadeOutTimer;
 
-        public Form2()
+        public display()
         {
             InitializeComponent();
             InitializeMidiInput();
@@ -49,11 +57,11 @@ namespace MIDI_Volume_Visualizer
                     Debug.WriteLine(Setting);
                     if (cnt == 0)
                     {
-                        Form2.ProcessName = Setting;
+                        display.ProcessName = Setting;
                     }
                     else if (cnt == 1)
                     {
-                        Form2.DefaultOpacity = double.Parse(Setting);
+                        display.DefaultOpacity = double.Parse(Setting);
                     }
                     cnt++;
                 }

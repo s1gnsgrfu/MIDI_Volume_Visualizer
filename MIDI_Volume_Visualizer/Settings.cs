@@ -1,9 +1,18 @@
-﻿using NAudio.CoreAudioApi;
+﻿/*
+Settings.cs
+
+Copyright (c) 2024 S'(s1gnsgrfu)
+
+This software is released under the MIT License.
+see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
+*/
+
+using NAudio.CoreAudioApi;
 using System.Diagnostics;
 
 namespace MIDI_Volume_Visualizer
 {
-    public partial class Form1 : Form
+    public partial class Settings : Form
     {
         public class ItemSet
         {
@@ -17,7 +26,7 @@ namespace MIDI_Volume_Visualizer
             }
         }
 
-        public Form1()
+        public Settings()
         {
             InitializeComponent();
         }
@@ -27,8 +36,8 @@ namespace MIDI_Volume_Visualizer
             var enumerator = new MMDeviceEnumerator();
             var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
 
-            label6.Text = (Form2.DefaultOpacity * 100).ToString() + "%";
-            trackBar1.Value = (int)(Form2.DefaultOpacity * 100);
+            label6.Text = (display.DefaultOpacity * 100).ToString() + "%";
+            trackBar1.Value = (int)(display.DefaultOpacity * 100);
 
             List<ItemSet> src = [];
 
@@ -48,7 +57,7 @@ namespace MIDI_Volume_Visualizer
             int selectedIndex = -1;
             for (int i = 0; i < src.Count; i++)
             {
-                if (src[i].ItemDisp == Form2.ProcessName)
+                if (src[i].ItemDisp == display.ProcessName)
                 {
                     selectedIndex = i;
                     break;
@@ -97,10 +106,10 @@ namespace MIDI_Volume_Visualizer
         private void button1_Click(object sender, EventArgs e)
         {
             ItemSet tmp = ((ItemSet)comboBox1.SelectedItem);
-            Form2.ProcessName = tmp.ItemDisp;
-            Form2.PIDChange = int.Parse(comboBox1.SelectedValue.ToString());
-            Form2.ProcessNameChange = 1;
-            Form2.DefaultOpacity = (double)trackBar1.Value / 100;
+            display.ProcessName = tmp.ItemDisp;
+            display.PIDChange = int.Parse(comboBox1.SelectedValue.ToString());
+            display.ProcessNameChange = 1;
+            display.DefaultOpacity = (double)trackBar1.Value / 100;
             this.Close();
         }
 
@@ -111,8 +120,8 @@ namespace MIDI_Volume_Visualizer
 
         private static void Setting_Out()
         {
-            string text = "ProcessName:" + Form2.ProcessName + "\n" +
-                "Opacity:" + Form2.DefaultOpacity + "\n";
+            string text = "ProcessName:" + display.ProcessName + "\n" +
+                "Opacity:" + display.DefaultOpacity + "\n";
             File.WriteAllText(@"settings", text);
         }
 

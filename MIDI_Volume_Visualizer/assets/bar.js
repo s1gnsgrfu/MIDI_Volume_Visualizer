@@ -1,3 +1,12 @@
+/*
+bar.js
+
+Copyright (c) 2024 S'(s1gnsgrfu)
+
+This software is released under the MIT License.
+see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
+*/
+
 function setProgressBarWidth(width) {
   var progressBar = document.querySelector('.progress_front');
   var innerDiv = document.getElementById("prog2");

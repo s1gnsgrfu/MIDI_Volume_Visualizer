@@ -1,9 +1,18 @@
-﻿using Microsoft.Web.WebView2.Core;
+﻿/*
+display.Designer.cs
+
+Copyright (c) 2024 S'(s1gnsgrfu)
+
+This software is released under the MIT License.
+see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
+*/
+
+using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
 
 namespace MIDI_Volume_Visualizer
 {
-    partial class Form2
+    partial class display
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +41,7 @@ namespace MIDI_Volume_Visualizer
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(display));
             webView21 = new WebView2();
             notifyIcon1 = new NotifyIcon(components);
             contextMenuStrip1 = new ContextMenuStrip(components);

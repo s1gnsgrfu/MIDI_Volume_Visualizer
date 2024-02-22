@@ -1,3 +1,12 @@
+/*
+Program.cs
+
+Copyright (c) 2024 S'(s1gnsgrfu)
+
+This software is released under the MIT License.
+see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
+*/
+
 using System.Diagnostics;
 
 namespace MIDI_Volume_Visualizer
@@ -10,7 +19,7 @@ namespace MIDI_Volume_Visualizer
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Form2 form2 = new();
+            display form2 = new();
 
             Application.Run(form2);
         }

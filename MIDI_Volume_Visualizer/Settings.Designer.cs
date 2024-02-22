@@ -1,6 +1,14 @@
-﻿namespace MIDI_Volume_Visualizer
+﻿/*
+Settings.Designer.cs
+
+Copyright (c) 2024 S'(s1gnsgrfu)
+
+This software is released under the MIT License.
+see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
+*/
+namespace MIDI_Volume_Visualizer
 {
-    partial class Form1
+    partial class Settings
     {
         /// <summary>
         /// Required designer variable.
