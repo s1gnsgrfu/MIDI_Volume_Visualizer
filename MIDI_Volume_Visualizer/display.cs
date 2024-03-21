@@ -43,6 +43,8 @@ namespace MIDI_Volume_Visualizer
 
         public display()
         {
+            this.Icon = new System.Drawing.Icon(@"assets\icon.ico");
+
             InitializeComponent();
             webView21.EnsureCoreWebView2Async();
 

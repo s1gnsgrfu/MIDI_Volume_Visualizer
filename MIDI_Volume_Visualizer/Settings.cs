@@ -29,6 +29,8 @@ namespace MIDI_Volume_Visualizer
 
         public Settings()
         {
+            this.Icon = new System.Drawing.Icon(@"assets\icon.ico");
+
             InitializeComponent();
         }
 
