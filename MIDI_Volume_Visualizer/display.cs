@@ -55,7 +55,6 @@ namespace MIDI_Volume_Visualizer
                 {
                     int index = line.IndexOf(':');
                     string Setting = line[(index + 1)..];
-                    Debug.WriteLine(Setting);
                     if (cnt == 0)
                     {
                         display.ProcessName = Setting;
@@ -197,9 +196,6 @@ namespace MIDI_Volume_Visualizer
 
         public void MIDIChange()
         {
-            Debug.WriteLine("midi");
-            Debug.WriteLine("----mid : " + MidiDev);
-            Debug.WriteLine("----premid : " + MidiPreDev);
             if (MidiDev != MidiPreDev)
             {
                 try
@@ -299,14 +295,6 @@ namespace MIDI_Volume_Visualizer
                     return;
                 }
             }
-        }
-
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-            midiIn?.Stop();
-            midiIn?.Dispose();
         }
 
         private void Setting_Click(object? sender, EventArgs e)

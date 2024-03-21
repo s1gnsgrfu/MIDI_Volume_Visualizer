@@ -116,16 +116,6 @@ namespace MIDI_Volume_Visualizer
             }
         }
 
-        public void AddComboBox1(string processName)
-        {
-            Action<string> addItemDelegate = (string newItem) =>
-            {
-                comboBox1.Items.Add(newItem);
-            };
-
-            comboBox1.Invoke(addItemDelegate, processName);
-        }
-
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             label6.Text = trackBar1.Value.ToString() + "%";
