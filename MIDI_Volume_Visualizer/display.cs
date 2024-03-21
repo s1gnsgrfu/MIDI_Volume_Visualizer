@@ -177,7 +177,6 @@ namespace MIDI_Volume_Visualizer
             catch (Exception)
             {
                 MessageBox.Show("Could not initialize the MIDI device.\nCheck to see if the device is connected and if any other software that uses MIDI devices is running.");
-                Environment.Exit(1);
             }
         }
 
@@ -212,13 +211,11 @@ namespace MIDI_Volume_Visualizer
                     midiIn.MessageReceived += MidiIn_MessageReceived;
                     midiIn.Start();
                     MidiPreDev = MidiDev;
-                    //display();
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("Could not initialize the MIDI device.\nCheck to see if the device is connected and if any other software that uses MIDI devices is running.");
                     midiIn = new MidiIn(MidiPreDev);
-
                 }
             }
         }
