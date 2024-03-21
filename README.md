@@ -11,8 +11,9 @@ The MIDI slider allows you to change the volume of any software.
 Right-click on MIDI_Volume_Visualizer in the task tray and click on Settings.  
 ![02](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/30fc1acc-4d75-4b5e-a9c7-de2bda8bb294)
   
-You can select the desired software and change the transparency.  
-![010413](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/20597f57-9707-449f-a920-0d7d1f540c64)
+You can select the desired software , change the transparency and select MIDI devices.
+![r3](https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/assets/52664734/1161658b-a2a7-4597-a6fd-0a4ccb0c5979)
+
 
 ## Products that have been confirmed to work
 keebwerk Nano.Slider
