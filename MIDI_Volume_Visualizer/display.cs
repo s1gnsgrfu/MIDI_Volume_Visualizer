@@ -198,7 +198,6 @@ namespace MIDI_Volume_Visualizer
 
         public void MIDIChange()
         {
-            MessageBox.Show("A");
             Debug.WriteLine("midi");
             Debug.WriteLine("----mid : " + MidiDev);
             Debug.WriteLine("----premid : " + MidiPreDev);
@@ -213,11 +212,12 @@ namespace MIDI_Volume_Visualizer
                     midiIn.MessageReceived += MidiIn_MessageReceived;
                     midiIn.Start();
                     MidiPreDev = MidiDev;
+                    //display();
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("Could not initialize the MIDI device.\nCheck to see if the device is connected and if any other software that uses MIDI devices is running.");
-                    midiIn=new MidiIn(MidiPreDev);
+                    midiIn = new MidiIn(MidiPreDev);
 
                 }
             }
@@ -226,7 +226,7 @@ namespace MIDI_Volume_Visualizer
         private void MidiIn_MessageReceived(object? sender, MidiInMessageEventArgs e)
         {
             GC.Collect();
-            this.Invoke(new Action(() =>
+            Invoke(new Action(() =>
             {
                 this.Show();
                 timer.Stop();
@@ -316,7 +316,7 @@ namespace MIDI_Volume_Visualizer
         {
             if (!form1.Visible)
             {
-                form1.ShowDialog();
+                form1.ShowDialog(this);
             }
         }
 
@@ -325,4 +325,5 @@ namespace MIDI_Volume_Visualizer
             Environment.Exit(0);
         }
     }
+
 }

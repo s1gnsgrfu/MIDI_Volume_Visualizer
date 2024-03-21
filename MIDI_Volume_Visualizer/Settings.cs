@@ -158,10 +158,10 @@ namespace MIDI_Volume_Visualizer
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            display display = new display();
             Setting_Out();
-            display.MIDIChange();
+            ((display)Owner).MIDIChange();
             GC.Collect();
         }
+
     }
 }
