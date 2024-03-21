@@ -8,6 +8,7 @@ see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
 */
 
 using NAudio.CoreAudioApi;
+using NAudio.Midi;
 using System.Diagnostics;
 
 namespace MIDI_Volume_Visualizer
@@ -68,6 +69,33 @@ namespace MIDI_Volume_Visualizer
             {
                 comboBox1.SelectedIndex = selectedIndex;
             }
+
+            List<ItemSet> device_list = [];
+
+            for (int i = 0; i < MidiIn.NumberOfDevices; i++)
+            {
+                Debug.WriteLine($"Device {i}: {MidiIn.DeviceInfo(i).ProductName}");
+                device_list.Add(new ItemSet(i, MidiIn.DeviceInfo(i).ProductName));
+            }
+
+            comboBox2.DataSource = device_list;
+            comboBox2.DisplayMember = "ItemDisp";
+            comboBox2.ValueMember = "ItemValue";
+
+            int selectedIndex2 = -1;
+            for (int i = 0; i < device_list.Count; i++)
+            {
+                if (device_list[i].ItemValue == display.MidiDev)
+                {
+                    selectedIndex2 = i;
+                    break;
+                }
+            }
+
+            if (selectedIndex2 != -1)
+            {
+                comboBox2.SelectedIndex = selectedIndex2;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -106,8 +134,10 @@ namespace MIDI_Volume_Visualizer
         private void button1_Click(object sender, EventArgs e)
         {
             ItemSet tmp = ((ItemSet)comboBox1.SelectedItem);
+            ItemSet tmp2= ((ItemSet)comboBox2.SelectedItem);
             display.ProcessName = tmp.ItemDisp;
             display.PIDChange = int.Parse(comboBox1.SelectedValue.ToString());
+            display.MidiDev = int.Parse(comboBox2.SelectedValue.ToString());
             display.ProcessNameChange = 1;
             display.DefaultOpacity = (double)trackBar1.Value / 100;
             this.Close();
@@ -121,13 +151,16 @@ namespace MIDI_Volume_Visualizer
         private static void Setting_Out()
         {
             string text = "ProcessName:" + display.ProcessName + "\n" +
-                "Opacity:" + display.DefaultOpacity + "\n";
+                "Opacity:" + display.DefaultOpacity + "\n"+
+                "MIDI_device:"+display.MidiDev+"\n";
             File.WriteAllText(@"settings", text);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            display display = new display();
             Setting_Out();
+            display.MIDIChange();
             GC.Collect();
         }
     }

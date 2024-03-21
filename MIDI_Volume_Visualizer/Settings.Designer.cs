@@ -43,6 +43,8 @@ namespace MIDI_Volume_Visualizer
             label6 = new Label();
             button1 = new Button();
             button2 = new Button();
+            label1 = new Label();
+            comboBox2 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
@@ -115,7 +117,25 @@ namespace MIDI_Volume_Visualizer
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
-            // Form1
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            label1.Location = new Point(71, 127);
+            label1.Name = "label1";
+            label1.Size = new Size(75, 30);
+            label1.TabIndex = 2;
+            label1.Text = "Device";
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(242, 134);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(230, 23);
+            comboBox2.TabIndex = 4;
+            // 
+            // Settings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -124,10 +144,12 @@ namespace MIDI_Volume_Visualizer
             Controls.Add(button1);
             Controls.Add(label6);
             Controls.Add(trackBar1);
+            Controls.Add(comboBox2);
             Controls.Add(comboBox1);
             Controls.Add(label5);
+            Controls.Add(label1);
             Controls.Add(label2);
-            Name = "Form1";
+            Name = "Settings";
             Text = "Settings";
             Activated += Form1_Load;
             FormClosed += Form1_FormClosed;
@@ -145,5 +167,7 @@ namespace MIDI_Volume_Visualizer
         private Label label6;
         private Button button1;
         private Button button2;
+        private Label label1;
+        private ComboBox comboBox2;
     }
 }

@@ -22,6 +22,8 @@ namespace MIDI_Volume_Visualizer
         static readonly double stepSize = (double)127 / 100;    //Converts 127 to 100 steps
         static int stepIndex;
         private static MidiIn? midiIn;
+        public static int MidiDev = 0;
+        private static int MidiPreDev = 0;
         private static int MIDI_MSG_Value;
         static int PID = 0;
         public static int ProcessNameChange = 1;
@@ -42,7 +44,6 @@ namespace MIDI_Volume_Visualizer
         public display()
         {
             InitializeComponent();
-            InitializeMidiInput();
             webView21.EnsureCoreWebView2Async();
 
             if (File.Exists("settings"))
@@ -62,10 +63,14 @@ namespace MIDI_Volume_Visualizer
                     else if (cnt == 1)
                     {
                         display.DefaultOpacity = double.Parse(Setting);
+                    }else if (cnt == 2)
+                    {
+                        display.MidiDev = int.Parse(Setting);
                     }
                     cnt++;
                 }
             }
+            InitializeMidiInput();
 
             ProcessName ??= "Spotify";
             DefaultOpacity ??= 0.9;
@@ -164,9 +169,10 @@ namespace MIDI_Volume_Visualizer
         {
             try
             {
-                midiIn = new MidiIn(1);
+                midiIn = new MidiIn(MidiDev);
                 midiIn.MessageReceived += MidiIn_MessageReceived;
                 midiIn.Start();
+                MidiPreDev = MidiDev;
             }
             catch (Exception)
             {
@@ -187,6 +193,33 @@ namespace MIDI_Volume_Visualizer
             {
                 MessageBox.Show($"Initialization failed : WebView2\nError : {e.InitializationException}");
                 Environment.Exit(1);
+            }
+        }
+
+        public void MIDIChange()
+        {
+            MessageBox.Show("A");
+            Debug.WriteLine("midi");
+            Debug.WriteLine("----mid : " + MidiDev);
+            Debug.WriteLine("----premid : " + MidiPreDev);
+            if (MidiDev != MidiPreDev)
+            {
+                try
+                {
+                    midiIn?.Stop();
+                    midiIn?.Dispose();
+
+                    midiIn = new MidiIn(MidiDev);
+                    midiIn.MessageReceived += MidiIn_MessageReceived;
+                    midiIn.Start();
+                    MidiPreDev = MidiDev;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Could not initialize the MIDI device.\nCheck to see if the device is connected and if any other software that uses MIDI devices is running.");
+                    midiIn=new MidiIn(MidiPreDev);
+
+                }
             }
         }
 
