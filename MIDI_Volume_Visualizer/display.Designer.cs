@@ -58,7 +58,8 @@ namespace MIDI_Volume_Visualizer
             webView21.DefaultBackgroundColor = Color.White;
             webView21.Location = new Point(0, 0);
             webView21.Name = "webView21";
-            webView21.Size = new Size(330, 100);
+            //webView21.Size = new Size(330, 100); //FHD
+            webView21.Size = new Size(330 * 2-80, 100*2-40); //4K
             webView21.TabIndex = 0;
             webView21.ZoomFactor = 1D;
             webView21.CoreWebView2InitializationCompleted += WebView21_CoreWebView2InitializationCompleted;
@@ -94,11 +95,13 @@ namespace MIDI_Volume_Visualizer
             // Form2
             // 
             BackColor = Color.Black;
-            ClientSize = new Size(330, 100);
+            //ClientSize = new Size(330, 100); //FHD
+            ClientSize = new Size(330*2-80, 100*2-40); //4K
             Controls.Add(webView21);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
-            Location = new Point(1570, 920);
+            //Location = new Point(1570, 920); //FHD
+            Location = new Point(1570*2+70, 920*2+30); //4K
             Name = "Form2";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
