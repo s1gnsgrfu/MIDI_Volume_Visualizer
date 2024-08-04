@@ -101,7 +101,7 @@ namespace MIDI_Volume_Visualizer
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
             //Location = new Point(1570, 920); //FHD
-            Location = new Point(1570*2+70, 920*2+30); //4K
+            Location = new Point(1570*2+70, 920*2+50); //4K
             Name = "Form2";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
