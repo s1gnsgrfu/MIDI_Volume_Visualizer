@@ -1,7 +1,7 @@
 ﻿/*
 display.cs
 
-Copyright (c) 2024 S'(s1gnsgrfu)
+Copyright (c) 2024-2025 S'(s1gnsgrfu)
 
 This software is released under the MIT License.
 see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
@@ -46,6 +46,7 @@ namespace MIDI_Volume_Visualizer
             this.Icon = new System.Drawing.Icon(@"assets\icon.ico");
 
             InitializeComponent();
+            UpdateLayout();
             webView21.EnsureCoreWebView2Async();
 
             if (File.Exists("settings"))
@@ -194,6 +195,24 @@ namespace MIDI_Volume_Visualizer
                 MessageBox.Show($"Initialization failed : WebView2\nError : {e.InitializationException}");
                 Environment.Exit(1);
             }
+        }
+
+        private void UpdateLayout() {
+            var workingArea = Screen.PrimaryScreen.WorkingArea;
+            webView21.Dock = DockStyle.Fill;
+            webView21.ZoomFactor = 1.0;
+
+            // Update Form Size
+            this.ClientSize = new Size(
+                (int)(workingArea.Width * 0.18),
+                (int)(workingArea.Height * 0.1)
+            );
+
+            // Update Form Location (right-bottom)
+            this.Location = new Point(
+                workingArea.Right - this.Width - (int)(workingArea.Width * 0.01),
+                workingArea.Bottom - this.Height - (int)(workingArea.Height * 0.01)
+            );
         }
 
         public void MIDIChange()

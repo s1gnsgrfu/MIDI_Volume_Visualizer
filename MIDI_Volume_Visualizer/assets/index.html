@@ -1,7 +1,7 @@
 ﻿<!--
 index.html
 
-Copyright (c) 2024 S'(s1gnsgrfu)
+Copyright (c) 2024-2025 S'(s1gnsgrfu)
 
 This software is released under the MIT License.
 see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
@@ -12,20 +12,20 @@ see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="name">
-        <font size="4" id="title">NO TITLE</font>
+        <div id="title" class="text" style="font-size: 19vh;">NO TITLE</div>
     </div>
     <div class="per">
-        <font size="2" id="inper">50%</font>
+        <div id="inper" class="text-end" style="font-size: 13vh;">50%</div>
     </div>
     <div class="main">
-        <div class="progress bg-secondary" role="progressbar" style="height : 5px" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress bg-secondary" role="progressbar" style="height : 5vh" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-light" style="width: 50%" id="prog2"></div>
         </div>
     </div>

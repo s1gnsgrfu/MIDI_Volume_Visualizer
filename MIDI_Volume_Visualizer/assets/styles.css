@@ -1,50 +1,33 @@
 /*
 styles.css
 
-Copyright (c) 2024 S'(s1gnsgrfu)
+Copyright (c) 2024-2025 S'(s1gnsgrfu)
 
 This software is released under the MIT License.
 see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
 */
 
-.progress_back{
-    display: block;
-    width: 100%;
-    height: 7px;
-    background: #ccc;
-    position: relative;
-    border-radius: 10px;
+.main {
+    margin: 0 0 2% 0;
 }
-.progress_front{
-    display: block;
-    width: 0;
-    height: 7px;
-    background: #7aa3fc;
+
+body {
+    width: 80%;
+    background: rgb(54, 54, 54);
     position: absolute;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-    transition: 0.2s ease-in-out;
-    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.main{
-    bottom:0;
-    margin: 10px 30px 0px 30px;
-}
-
-body{
-    background:rgb(54, 54, 54);
-}
-
-.name{
-    color:white;
-    margin: 15px 35px 5px 35px;
-    text-align:left;
+.name {
+    color: white;
+    margin: 0 0 5% 0;
+    text-align: left;
 }
 
 .per{
     color:white;
     text-align:right;
-    margin:0px 35px;
+    margin:3% 0;
 }

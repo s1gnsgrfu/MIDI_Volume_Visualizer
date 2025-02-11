@@ -18,6 +18,7 @@
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2277.86" />
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="WebView2.Runtime.X64" Version="132.0.2957.140" />
   </ItemGroup>
 
   <ItemGroup>
