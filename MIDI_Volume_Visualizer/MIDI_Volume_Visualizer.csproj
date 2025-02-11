@@ -10,8 +10,29 @@
     <ApplicationIcon>assets\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Content Include="assets\icon.ico" />
+    <None Remove="assets\bar.js" />
+    <None Remove="assets\index.html" />
+    <None Remove="assets\styles.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="assets\bar.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\styles.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
