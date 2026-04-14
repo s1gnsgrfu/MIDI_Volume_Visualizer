@@ -1,7 +1,7 @@
 ﻿/*
 display.cs
 
-Copyright (c) 2024-2025 S'(s1gnsgrfu)
+Copyright (c) 2024-2026 S'(s1gnsgrfu)
 
 This software is released under the MIT License.
 see https://github.com/s1gnsgrfu/MIDI_Volume_Visualizer/blob/master/LICENSE
@@ -72,10 +72,10 @@ namespace MIDI_Volume_Visualizer
                     cnt++;
                 }
             }
-            InitializeMidiInput();
-
             ProcessName ??= "Spotify";
             DefaultOpacity ??= 0.9;
+
+            Shown += (_, _) => InitializeMidiInput();
 
             ShowInTaskbar = false;
             TopMost = true;
@@ -171,6 +171,18 @@ namespace MIDI_Volume_Visualizer
         {
             try
             {
+                int? resolvedMidiDevice = ResolveMidiDeviceIndex(MidiDev);
+                if (resolvedMidiDevice is null)
+                {
+                    MessageBox.Show("No MIDI input devices were found.");
+                    return;
+                }
+
+                MidiDev = resolvedMidiDevice.Value;
+
+                midiIn?.Stop();
+                midiIn?.Dispose();
+
                 midiIn = new MidiIn(MidiDev);
                 midiIn.MessageReceived += MidiIn_MessageReceived;
                 midiIn.Start();
@@ -221,20 +233,29 @@ namespace MIDI_Volume_Visualizer
             {
                 try
                 {
-                    midiIn?.Stop();
-                    midiIn?.Dispose();
-
-                    midiIn = new MidiIn(MidiDev);
-                    midiIn.MessageReceived += MidiIn_MessageReceived;
-                    midiIn.Start();
-                    MidiPreDev = MidiDev;
+                    InitializeMidiInput();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    MessageBox.Show("Could not initialize the MIDI device.\nCheck to see if the device is connected and if any other software that uses MIDI devices is running.");
-                    midiIn = new MidiIn(MidiPreDev);
+                    MessageBox.Show("Could not initialize the MIDI device.\nCheck to see if the device is connected and if any other software that uses MIDI devices is running.\n\nERROR\n" + e);
+                    MidiDev = MidiPreDev;
                 }
             }
+        }
+
+        private static int? ResolveMidiDeviceIndex(int requestedDevice)
+        {
+            if (MidiIn.NumberOfDevices == 0)
+            {
+                return null;
+            }
+
+            if (requestedDevice >= 0 && requestedDevice < MidiIn.NumberOfDevices)
+            {
+                return requestedDevice;
+            }
+
+            return 0;
         }
 
         private void MidiIn_MessageReceived(object? sender, MidiInMessageEventArgs e)
